@@ -1,16 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{91AFE08F-0A4E-446F-9616-3F7F94E1BB52}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1C4E13AC-8507-4EA1-A263-469CB4370C16}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "leetcode", "src\leetcode\leetcode.xproj", "{E2E64EFD-5C4A-4838-BB57-CB7B4C2C0B65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "leetcode", "src\leetcode\leetcode.csproj", "{E2E64EFD-5C4A-4838-BB57-CB7B4C2C0B65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,5 +25,8 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E2E64EFD-5C4A-4838-BB57-CB7B4C2C0B65} = {91AFE08F-0A4E-446F-9616-3F7F94E1BB52}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {57034E52-D9AE-4CF3-B6C5-151E75F49519}
 	EndGlobalSection
 EndGlobal
