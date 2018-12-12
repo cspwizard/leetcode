@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Xunit;
 
 namespace leetcode
 {
@@ -16,41 +14,24 @@ namespace leetcode
         /// <returns></returns>
         public int SingleNonDuplicate(int[] nums)
         {
-            return SingleNonDuplicate(nums, 0, nums.Length);
-
+            int n = nums.Length, lo = 0, hi = n / 2;
+            while (lo < hi)
+            {
+                int m = (lo + hi) / 2;
+                if (nums[2 * m] != nums[2 * m + 1]) hi = m;
+                else lo = m + 1;
+            }
+            return nums[2 * lo];
         }
-
-        private int SingleNonDuplicate(int[] nums, int start, int length)
+        
+        [Fact]
+        public void Validate()
         {
-            var midCeil = length / 2 + 1;
-            var mid = midCeil - 1;
-
-            if (nums[start + mid] == nums[start + midCeil])
-            {
-                --mid;
-                --midCeil;
-            }
-
-            if (length == 3)
-            {
-                if (mid == 0)
-                {
-                    return nums[start];
-                }
-                else
-                {
-                    return nums[start + midCeil];
-                }
-            }
-
-            if (mid % 2 != 0)
-            {
-                return SingleNonDuplicate(nums, start + mid + 1, length - mid - 1);
-            }
-            else
-            {
-                return SingleNonDuplicate(nums, start, mid + 1);
-            }
+            Assert.Equal(3, SingleNonDuplicate(new[] { 1, 1, 2, 2, 3, 4, 4 }));
+            Assert.Equal(2, SingleNonDuplicate(new[] { 1, 1, 2, 3, 3, 4, 4, 8, 8 }));
+            Assert.Equal(2, SingleNonDuplicate(new[] { 1, 1, 2 }));
+            Assert.Equal(2, SingleNonDuplicate(new[] { 2, 3, 3 }));
+            Assert.Equal(10, SingleNonDuplicate(new[] { 3, 3, 7, 7, 10, 11, 11 }));
         }
     }
 }

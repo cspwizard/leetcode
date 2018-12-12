@@ -1,67 +1,59 @@
 ﻿using System.Collections.Generic;
+using Xunit;
 
 namespace leetcode
 {
-    internal class _003_LengthOfLongestSubstring
+    /// <summary>
+    /// Your runtime beats 71.20 %  of csharp submissions.
+    /// </summary>
+    public class _003_LengthOfLongestSubstring
     {
         public int LengthOfLongestSubstring(string s)
         {
-            int maxLen = 0, counter = 0;
-            ListItem newHead, head = null, tail = new ListItem();
-            
-            var dic = new Dictionary<char, ListItem>();
+            int maxLen = 0, last = 0;
+
+            var charMap = new Dictionary<char, int>();
+            var indexChar = new Dictionary<int, char>();
 
             for (var i = 0; i < s.Length; i++)
             {
                 var c = s[i];
 
-                if (dic.TryGetValue(c, out newHead))
+                if (charMap.TryGetValue(c, out int j))
                 {
-                    if (counter > maxLen)
+                    if (charMap.Count > maxLen)
                     {
-                        maxLen = counter;
+                        maxLen = charMap.Count;
                     }
 
-                    while (head != newHead.Next)
+                    while (last < j + 1)
                     {
-                        dic.Remove(head.Value);
-                        --counter;
-                        head = head.Next;
+                        charMap.Remove(s[last++]);
                     }
                 }
 
-                ++counter;
-                tail.Next = new ListItem(c);
-                dic.Add(c, tail.Next);
-                tail = tail.Next;
-                if (head == null)
-                {
-                    head = tail;
-                }
+                charMap[c] = i;
             }
 
-            if (counter > maxLen)
+            if (charMap.Count > maxLen)
             {
-                maxLen = counter;
+                return charMap.Count;
             }
 
             return maxLen;
         }
 
-        private class ListItem
+        [Fact]
+        public void Validate()
         {
-            public ListItem()
-            {
-            }
-
-            public ListItem(char value) : this()
-            {
-                Value = value;
-            }
-
-            public ListItem Next { get; set; }
-
-            public char Value { get; set; }
+            Assert.Equal(3, LengthOfLongestSubstring("abcabcbb"));
+            Assert.Equal(1, LengthOfLongestSubstring("bbbbb"));
+            Assert.Equal(5, LengthOfLongestSubstring("abcde"));
+            Assert.Equal(5, LengthOfLongestSubstring("abcdea"));
+            Assert.Equal(3, LengthOfLongestSubstring("pwwkew"));
+            Assert.Equal(2, LengthOfLongestSubstring("aab"));
+            Assert.Equal(3, LengthOfLongestSubstring("dvdf"));
+            Assert.Equal(7, LengthOfLongestSubstring("bpfbhmipx"));
         }
     }
 }
